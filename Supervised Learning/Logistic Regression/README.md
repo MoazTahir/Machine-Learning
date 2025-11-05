@@ -1,127 +1,220 @@
-# Logistic Regression Heart Attack Prediction App
+<!-- markdownlint-disable MD013 -->
+# Logistic Regression — Heart Disease Classification
 
-## Introduction
+This module delivers a complete learning and production toolkit for binary logistic regression. You will find in-depth theory, a reproducible training pipeline, an exploratory notebook, and a pluggable FastAPI service that exposes the trained classifier. Use it as a refresher on medical risk modelling, a teaching aid, or a template for other classification problems.
 
-This project implements an intuitive and user-friendly web application made with Gradio that utilizes logistic regression to provide predictions of Heart attack possibility based on certain key factors relating to ones health.
+---
 
-The dataset, heart.csv, consists of 14 columns:
+## Quickstart
 
-1. Age
-2. Sex
-3. Chest pain type (4 values)
-4. Resting blood pressure
-5. Serum cholestoral in mg/dl
-6. Fasting blood sugar > 120 mg/dl
-7. Resting electrocardiographic results (values 0,1,2)
-8. Maximum heart rate achieved
-9. Exercise induced angina
-10. Oldpeak = ST depression induced by exercise relative to rest
-11. The slope of the peak exercise ST segment
-12. Number of major vessels (0-3) colored by flourosopy
-13. Thal: 0 = normal; 1 = fixed defect; 2 = reversable defect
-14. Target: 0 = less chance of heart attack 1 = more chance of heart attack
+1. **Install the shared environment**
 
-Dataset is taken for learning purpose. Source of the data : https://archive.ics.uci.edu/ml/datasets/Heart+Disease
-
-## What is Logistic Regression
-
-Logistic regression is a data analysis technique that uses mathematics to find the relationships between two data factors. It then uses this relationship to predict the value of one of those factors based on the other. The prediction usually has a finite number of outcomes, like yes or no.
-
-In mathematics as the equation between x and y. The logit function maps y as a sigmoid function of x.
-
-![Alt text](sigmoid.png)
-
-In many cases, multiple explanatory variables affect the value of the dependent variable. To model such input datasets, logistic regression formulas assume a linear relationship between the different independent variables. You can modify the sigmoid function and compute the final output variable as 
-
-y = f(β0 + β1x1 + β2x2+… βnxn)
-
-The symbol β represents the regression coefficient. The logit model can reverse calculate these coefficient values when you give it a sufficiently large experimental dataset with known values of both dependent and independent variables. 
-
-## Types of Logistic Regression
-
-* Binary logistic regression: Works well for binary classification problems that have only two possible outcome (0-1 / Yes-No)
-* Multinomial logistic regression: Analyzes problems that have several possible outcomes as long as the number of outcomes is finite (25%, 50%, 75%, 100%)
-* Ordinal logistic regression: ordered logit model, is a special type of multinomial regression for problems in which numbers represent ranks rather than actual values (rank your service as poor, fair, good, or excellent)
-
-## Notebook Section
-
-### Prerequisites
-
-* Notebook and Dataset: Download the ***Heart_attack_prediction.ipynb*** and ***heart.csv***
-
-* Python Environment: Make sure you have Python3 installed on your system. You can download it from https://www.python.org/downloads/.
-
-* Open the notebook in VSCode and use the Jupyter extension to run cells. Optionally, you can use Jupyter Notebook as well
-
-* Libraries: Install the required Python libraries using the following commands:
-
-```bash
-pip install pandas
-pip install matplotlib
-pip install seaborn
-pip install scikit-learn
-```
-
-### Dataset Exploration
-
-The dataset is explored using the Jupyter Notebook Heart_attack_prediction.ipynb. The notebook includes:
-
-* Reading and loading the dataset.
-* Displaying information and summary statistics of the dataset.
-
-### Model Training and Evaluation
-
-The notebook further explores the linear regression model for predicting salaries. Key steps include:
-
-* Splitting the dataset into training and testing sets.
-* Scaling the X labels using Standard scaling.
-* Building and training the logistic regression model.
-* Evaluating the model's performance using metrics such as accuracy.
-* Saving the trained model as Regression_Model.sav using the pickle library for inference.
-* Saving the scaler used for scaling as scaler.pkl for consistent preprocessing during inference.
-
-## Gradio App Section
-
-### Get Started Locally
-
-To get started locally all you need is gradio which you can install in python using
-
-```bash
-pip install gradio
-```
-
-Gradio is an open-source Python library designed for fast and straightforward UI generation for machine learning models. It allows developers to create interactive and customizable user interfaces without extensive coding. Gradio supports a wide range of input components, making it easy to integrate with various model types, and it provides a seamless way to deploy machine learning models for real-time inference with minimal effort.
-
-### Running Gradio App
-
-1. Download the 'gradio_app' folder from the repository or clone the repo with
-
-   ```sh
-   git clone https://github.com/ZackFairMoaz/Machine-Learning.git
+   ```bash
+   pip install -r requirements.txt
    ```
 
-> [!NOTE]
-> To download a folder from GitHub, navigate to your desired repository, select the folder you want to download from GitHub, copy the URL, navigate to https://download-directory.github.io/ and paste the URL into the text box, and hit enter.
+2. **Train the model and persist artefacts**
 
-2. Open a terminal or command prompt.
-3. Navigate to the 'gradio_app' folder.
-4. Run the following command to run local server:
+   ```bash
+   python "Supervised Learning/Logistic Regression/src/train.py"
+   ```
 
-```bash
-python app.py
+   Example output:
+
+   ```json
+   {
+     "accuracy": 0.885,
+     "precision": 0.893,
+     "recall": 0.862,
+     "f1": 0.877,
+     "roc_auc": 0.941
+   }
+   ```
+
+   The script writes `artifacts/logistic_regression_model.joblib` and `artifacts/metrics.json`.
+
+3. **Launch the unified inference API**
+
+   ```bash
+   python -m fastapi_app.main
+   ```
+
+4. **Issue a prediction** (FastAPI docs at `http://127.0.0.1:8000/docs` provide an interactive form):
+
+   ```bash
+   curl -X POST "http://127.0.0.1:8000/models/logistic_regression" \
+        -H "Content-Type: application/json" \
+        -d '{
+              "age": 54,
+              "sex": 1,
+              "cp": 1,
+              "trestbps": 130,
+              "chol": 246,
+              "fbs": 0,
+              "restecg": 1,
+              "thalach": 150,
+              "exang": 0,
+              "oldpeak": 1.0,
+              "slope": 1,
+              "ca": 0,
+              "thal": 2
+            }'
+   ```
+
+   Sample response:
+
+   ```json
+   {
+     "predicted_class": 0,
+     "probability": 0.23,
+     "model_version": "1730764800",
+     "metrics": {
+       "accuracy": 0.885,
+       "precision": 0.893,
+       "recall": 0.862,
+       "f1": 0.877,
+       "roc_auc": 0.941
+     }
+   }
+   ```
+
+5. **Explore the companion notebook**
+
+   Open `notebooks/logistic_regression.ipynb` to walk through the data story, feature engineering ideas, ROC analysis, and calibration experiments.
+
+6. **Run the API in Docker** (optional containerised workflow)
+
+   ```bash
+   docker build -f fastapi_app/Dockerfile -t ml-fastapi .
+   docker run --rm -p 8000:8000 ml-fastapi
+   ```
+
+---
+
+## Mathematical Foundations
+
+Binary logistic regression models log-odds of the positive class as a linear combination of predictors:
+
+$$
+\log \frac{P(y=1 \mid x)}{1 - P(y=1 \mid x)} = \beta_0 + \beta_1 x_1 + \dots + \beta_p x_p.
+$$
+
+Solving for the probability yields the familiar sigmoid:
+
+$$
+P(y=1 \mid x) = \sigma(\beta_0 + \beta^\top x) = \frac{1}{1 + e^{-(\beta_0 + \beta^\top x)}}.
+$$
+
+### Interpreting coefficients
+
+- Positive coefficients increase the log-odds of heart disease. For instance, a positive weight on `cp` (chest pain type) indicates that higher values correlate with higher risk.
+- Exponentiating coefficients (`e^{\beta_i}`) yields the odds ratio — “how many times more likely” the outcome becomes per unit increase.
+
+### Assumptions worth validating
+
+1. **Linearity in the logit** — the relationship between predictors and log-odds should be linear. We include polynomial interaction analysis in the notebook to probe deviations.
+2. **Independence of observations** — satisfied for patient-level records collected independently.
+3. **Low multicollinearity** — high correlation between features inflates variance; check VIF or correlation heatmaps.
+4. **Well-calibrated probabilities** — ROC and calibration curves in the notebook confirm the classifier’s probabilistic quality.
+
+---
+
+## Dataset
+
+- **Source**: UCI Heart Disease dataset.
+- **Location**: `data/heart.csv`.
+- **Prediction target**: `target = 1` indicates presence of heart disease.
+- **Feature snapshot**:
+
+  | Feature   | Description                                 |
+  |-----------|---------------------------------------------|
+  | `age`     | Age in years                                 |
+  | `sex`     | 1 = male, 0 = female                         |
+  | `cp`      | Chest pain type (0–3)                        |
+  | `trestbps`| Resting blood pressure (mm Hg)               |
+  | `chol`    | Serum cholesterol (mg/dl)                    |
+  | `fbs`     | Fasting blood sugar > 120 mg/dl (1/0)        |
+  | `restecg` | Resting ECG results (0–2)                    |
+  | `thalach` | Maximum heart rate achieved                  |
+  | `exang`   | Exercise-induced angina (1/0)                |
+  | `oldpeak` | ST depression induced by exercise            |
+  | `slope`   | Slope of peak exercise ST segment (0–2)      |
+  | `ca`      | Number of major vessels coloured (0–4)       |
+  | `thal`    | Thalassemia category (3, 6, 7)               |
+
+The training script performs an 80/20 stratified split so class proportions remain stable across train and validation folds.
+
+---
+
+## Repository Layout
+
 ```
-5. Once the Gradio app is up and running, you should see a link to local host, use CTRL+Click to open, alternatively you can run the url mentioned below in your web browser
+Logistic Regression/
+├── README.md
+├── data/
+│   └── heart.csv
+├── notebooks/
+│   └── logistic_regression.ipynb
+├── src/
+│   ├── config.py
+│   ├── data.py
+│   ├── pipeline.py
+│   ├── train.py
+│   └── inference.py
+└── artifacts/
+    └── .gitkeep
+```
 
-## Usage
+---
 
-Access the application by running the script file and opening a web browser to navigate to http://127.0.0.1:7860.
+## Implementation Walkthrough
 
-## Contributing
+### Training pipeline (`src/`)
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Your insights and improvements are highly appreciated.
+- `config.py` centralises feature names, file paths, stratification size, and ensures artefact directories exist.
+- `data.py` loads the CSV, constructs `(X, y)`, and performs stratified splits via `train_test_split`.
+- `pipeline.py` wraps a `StandardScaler` + `LogisticRegression` inside a scikit-learn `Pipeline`, trains it, evaluates accuracy/precision/recall/F1/ROC-AUC, and persists both model weights (`joblib`) and metrics (`json`).
+- `train.py` is the CLI entrypoint invoked in the Quickstart. It prints the metrics dictionary for easy logging.
+- `inference.py` defines Pydantic request/response models plus a cached service (`get_service()`) used by the shared FastAPI registry.
 
-## License
+### Serving via FastAPI
 
-[MIT](https://choosealicense.com/licenses/mit/)
+The FastAPI project (`fastapi_app/`) loads this module dynamically:
 
+- `services/registry.py` registers the `logistic_regression` slug and lazily imports `src/inference.py`.
+- When a request hits `/models/logistic_regression`, the registry instantiates `LogisticRegressionService`, loads artefacts (training on the fly if needed), validates inputs with Pydantic, and returns probabilities alongside saved metrics.
+- Metrics attached to responses make it easy to monitor for drift or stale models in downstream clients.
 
+---
+
+## Notebook Tour
+
+`notebooks/logistic_regression.ipynb` contains:
+
+1. Statistical refresher on the logit link and odds ratios.
+2. Exploratory plots (pairplots, heatmaps) to understand feature interactions.
+3. Training walkthrough mirroring `src/pipeline.py` with confusion matrix visualisations.
+4. ROC curve, precision–recall curve, and calibration plot to assess probabilistic performance.
+5. Guidance on exporting notebook insights back into the production code.
+
+Executing the notebook after modifying `src/` code is a quick regression test — metric parity should match the output of `train.py`.
+
+---
+
+## Extending the Module
+
+1. **Feature engineering** — introduce interaction terms or polynomial features by editing `_build_preprocessing()` in `pipeline.py`.
+2. **Threshold tuning** — adjust the decision threshold (currently 0.5) inside `LogisticRegressionService.predict` based on ROC analysis.
+3. **Regularisation sweep** — replace `LogisticRegression` with the `saga` solver and add `penalty`/`C` hyperparameters for elastic-net search.
+4. **Explainability** — integrate SHAP or LIME in the notebook to surface patient-level explanations.
+5. **Monitoring** — extend the FastAPI response payload with timestamped metrics or integrate Prometheus counters in the service layer.
+
+---
+
+## References
+
+- Hosmer, D. W., Lemeshow, S., & Sturdivant, R. X. *Applied Logistic Regression.*
+- Kuhn, M., & Johnson, K. *Applied Predictive Modeling.*
+- UCI Machine Learning Repository — Heart Disease dataset.
+
+Use these resources alongside the notebook to deepen understanding and to adapt the module for real-world clinical risk scoring pipelines.
