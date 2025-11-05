@@ -1,0 +1,2 @@
+# FastAPI service dependencies (inherits the project-wide stack)
+-r ../requirements.txt

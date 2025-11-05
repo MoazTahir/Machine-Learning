@@ -1,125 +1,234 @@
-# Linear Regression Salary Prediction App
+<!-- markdownlint-disable MD013 -->
+# Linear Regression — Salary Prediction
 
-## Introduction
+This module is designed to be a complete learning path for simple linear regression: it introduces the math with intuition, demonstrates a scientific training workflow in Python, curates an exploratory notebook, and exposes the final model behind a production-ready FastAPI microservice. Use it to refresh fundamentals, teach others, or as a template for the rest of the repository.
 
-This project implements an intuitive and user-friendly web application that utilizes linear regression to provide accurate salary predictions based on an individual's years of professional experience.
+---
 
-The dataset, Salary_Data.csv, consists of two columns: "YearsExperience" and "Salary,"
+## Learning Objectives
 
-## What is Linear Regression
+- Understand the assumptions and derivation of ordinary least squares (OLS).
+- Explore and preprocess the salary dataset, motivating the need for scaling.
+- Train, evaluate, and persist a regression pipeline using scikit-learn primitives.
+- Expose the trained model through a modular inference service (FastAPI + optional Flask compatibility layer).
+- Extend the notebook to experiment with regularisation, confidence intervals, and diagnostic plots.
 
-Linear regression is a data analysis technique that predicts the value of unknown data by using another related and known data value. It mathematically models the unknown or dependent variable and the known or independent variable as a linear equation. For instance, suppose that you have data about your expenses and income for last year. Linear regression techniques analyze this data and determine that your expenses are half your income. They then calculate an unknown future expense by halving a future known income.
+---
 
-At its core, a simple linear regression technique attempts to plot a line graph between two data variables, x and y. As the independent variable, x is plotted along the horizontal axis. Independent variables are also called explanatory variables or predictor variables. The dependent variable, y, is plotted on the vertical axis. You can also refer to y values as response variables or predicted variables.
+## Quickstart
 
-### Steps in linear regression
+1. **Install the shared environment**
 
-For this overview, consider the simplest form of the line graph equation between y and x; y=c*x+m, where c and m are constant for all possible values of x and y. So, for example, suppose that the input dataset for (x,y) was (1,5), (2,8), and (3,11). To identify the linear regression method, you would take the following steps:
-
-* Plot a straight line, and measure the correlation between 1 and 5.
-* Keep changing the direction of the straight line for new values (2,8) and (3,11) until all values fit.
-* Identify the linear regression equation as y=3*x+2.
-* Extrapolate or predict that y is 14 when x is
-
-### Types of Linear Regression
-
-* Simple linear regression: Y= β0*X + β1 + ε
-* Multiple linear regression: Y= β0*X0 + β1X1 + β2X2+…… βnXn+ ε
-* Logistic regression:  Use logarithmic functions to compute the regression line with a prediction being a value between 0 and 1
-
-Where β0 and β1 are two unknown constants representing the regression slope, whereas ε (epsilon) is the error term.
-
-## Notebook Section
-
-### Prerequisites
-
-* Notebook and Dataset: Download the ***Salary_Prediction_Exploration.ipynb*** and ***Salary_Data.csv***
-
-* Python Environment: Make sure you have Python3 installed on your system. You can download it from https://www.python.org/downloads/.
-
-* Open the notebook in VSCode and use the Jupyter extension to run cells. Optionally, you can use Jupyter Notebook as well
-
-* Libraries: Install the required Python libraries using the following commands:
-
-```bash
-pip install pandas
-pip install matplotlib
-pip install seaborn
-pip install scikit-learn
-```
-
-### Dataset Exploration
-
-The dataset is explored using the Jupyter Notebook Salary_Prediction_Exploration.ipynb. The notebook includes:
-
-* Reading and loading the dataset.
-* Displaying information and summary statistics of the dataset.
-* Visualizing the distribution of salaries.
-* Plotting a scatter plot to visualize the correlation between years of experience and salary.
-
-### Model Training and Evaluation
-
-The notebook further explores the linear regression model for predicting salaries. Key steps include:
-
-* Splitting the dataset into training and testing sets.
-* Scaling the target variable using Min-Max scaling.
-* Building and training the linear regression model.
-* Evaluating the model's performance using Root Mean Squared Error and visualizing predictions.
-* Saving the trained model as Regression_Model.sav using the pickle library for inference.
-
-## Flask App Section
-
-### Get Started Locally
-
-To get started locally all you need is docker which you can download from https://www.docker.com/
-
-Docker is a platform that allows developers to package, distribute, and run applications in containers. Containers are lightweight, portable, and isolated environments that encapsulate everything needed to run an application, including code, runtime, system tools, libraries, and settings. Docker simplifies the process of building, shipping, and deploying applications by providing a consistent environment across different systems, making it easier to develop and deploy software in various environments, from development to production
-
-### Creating Docker Image
-
-1. Download the 'flask_app' folder from the repository or clone the repo with
-
-   ```sh
-   git clone https://github.com/ZackFairMoaz/Machine-Learning.git
+   ```bash
+   pip install -r requirements.txt
    ```
 
-> [!NOTE]
-> To download a folder from GitHub, navigate to your desired repository, select the folder you want to download from GitHub, copy the URL, navigate to https://download-directory.github.io/ and paste the URL into the text box, and hit enter.
+2. **Train the model and persist artefacts**
 
-2. Open a terminal or command prompt.
-3. Navigate to the 'flask_app' folder.
-4. Run the following command to build the Docker image:
+   ```bash
+   python "Supervised Learning/Linear Regression/src/train.py"
+   ```
+
+   Example output:
+
+   ```json
+   {
+     "r2": 0.978,
+     "rmse": 4944.56,
+     "mae": 3931.45
+   }
+   ```
+
+   The script creates `artifacts/linear_regression_model.joblib` and `artifacts/metrics.json`.
+
+3. **Launch the unified inference API**
+
+   ```bash
+   python -m fastapi_app.main
+   ```
+
+4. **Issue a prediction** (the FastAPI docs at `http://127.0.0.1:8000/docs` provide auto-generated forms):
+
+   ```bash
+   curl -X POST "http://127.0.0.1:8000/models/linear_regression" \
+        -H "Content-Type: application/json" \
+        -d '{"years_experience": 6.5}'
+   ```
+
+   Sample response:
+
+   ```json
+   {
+     "salary_prediction": 93074.32,
+     "model_version": "1730764800",
+     "metrics": {
+       "r2": 0.978,
+       "rmse": 4944.56,
+       "mae": 3931.45
+     }
+   }
+   ```
+
+5. **Deep dive via the notebook**
+
+   Open `notebooks/linear_regression.ipynb` in VS Code or Jupyter to walk through the EDA, derivations, and diagnostics.
+
+### Run the FastAPI service in Docker
+
+If you prefer containerised workflows, build the pre-configured image and expose the API on port 8000:
 
 ```bash
-docker build -t <name> .
-```
-5. Once the Docker image is built, run the following command to start the Docker container:
-
-```bash
-docker run -p 5000:5000 --rm <name>
+docker build -f fastapi_app/Dockerfile -t ml-fastapi .
+docker run --rm -p 8000:8000 ml-fastapi
 ```
 
-> [!NOTE]
-> * ***docker build*** is a command to build a Docker image.
-> * ***-t*** flag is used to tag the image with a name and optionally a tag.
-> * ***name*** is placeholder name of the image which can be customized to preference.
-> * ***.*** period represents the build context. It tells Docker to use the current directory as the build context.
-> * ***'docker run'*** is a command used in Docker to create and start a new container based on a specified image.
-> * ***rm*** flag helps delete the container immediately after it exits.
-> * ***-p 5000:5000:*** flag maps port 5000 from the Docker container to port 5000 on the host machine.
+The image bundles the repository and dependencies. On the first inference request the service will train the linear regression model automatically if the `artifacts/` directory is empty.
 
-## Usage
+---
 
-Access the application by running the image in a container and opening a web browser to navigate to http://127.0.0.1:5000.
+## Mathematical Foundations
 
-(Optionally, you can un-comment the model.train() line in app.py to train the model whenever the app starts)
+Given a design matrix $X \in \mathbb{R}^{n \times p}$ and targets $y \in \mathbb{R}^{n}$, ordinary least squares (OLS) solves
 
-## Contributing
+$$
+\hat{\beta} = \arg\min_{\beta} \lVert y - X\beta \rVert^2,
+$$
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Your insights and improvements are highly appreciated.
+producing the familiar closed-form solution (when $X^\top X$ is invertible)
 
-## License
+$$
+\hat{\beta} = (X^{\top}X)^{-1}X^{\top}y.
+$$
 
-[MIT](https://choosealicense.com/licenses/mit/)
+Intuitively, OLS finds the straight line that minimises the squared vertical distance between observed salaries and predicted salaries. With one feature, the fitted line is
+
+$$
+\hat{y} = \beta_0 + \beta_1 x,
+$$
+
+where $\beta_1$ captures the expected salary increase per additional year of experience. For example, if $\beta_1 = 9{,}400$ and $\beta_0 = 29{,}000$, the model predicts a salary of roughly $29{,}000 + 9{,}400 \times 6.5 \approx 90{,}000$ USD for 6.5 years of experience.
+
+### Assumptions worth checking
+
+1. **Linearity** — residual plots should look like noise; polynomial trends would suggest feature engineering.
+2. **Independence** — our dataset is a simple cross-section, but time-series problems would require specialised handling.
+3. **Homoscedasticity** — variance of residuals should stay roughly constant across experience levels.
+4. **Normality** — mainly relevant if you intend to form confidence intervals around coefficients.
+
+The notebook includes code cells that generate Q-Q plots, residual vs. fitted charts, and leverage statistics to test these assumptions empirically.
+
+---
+
+## Dataset
+
+- **Source**: classic salary vs. experience sample (30 observations).
+- **Location**: `data/salary_data.csv`.
+- **Schema**:
+   - `YearsExperience` — continuous, measured in years.
+   - `Salary` — annual salary in USD.
+
+Preview:
+
+| YearsExperience |   Salary |
+|----------------:|---------:|
+|             1.1 |  39343.0 |
+|             3.2 |  64445.0 |
+|             6.0 |  93940.0 |
+|             9.5 | 116969.0 |
+
+The training script performs a deterministic 80/20 split using `random_state=42`, enabling reproducible experiments and consistent metrics across notebook runs and CLI executions.
+
+---
+
+## Repository Layout
+
+```
+Linear Regression/
+├── README.md                # You are here
+├── data/                    # Local copy of the salary dataset
+├── notebooks/               # Rich tutorial notebooks (see below)
+├── src/
+│   ├── config.py            # Central configuration dataclass
+│   ├── data.py              # Data loading and preprocessing helpers
+│   ├── pipeline.py          # Training pipeline and persistence helpers
+│   ├── train.py             # CLI entry-point for training
+│   └── inference.py         # FastAPI-ready inference service
+└── artifacts/               # Model weights, metrics, and metadata
+```
+
+The `src/` code is importable and intentionally decoupled from notebooks or UI layers. The same abstraction pattern is repeated across all supervised-learning modules so you can compare architectures easily.
+
+---
+
+## Implementation Walkthrough
+
+### Code modules (`src/`)
+
+- `config.py` encapsulates all tunables (feature names, file paths, train/test ratio). It is a dataclass so you can override values during testing.
+- `data.py` loads the CSV, builds the feature matrix/target vector, and performs the train/validation split. Every function accepts an optional config, making it easy to feed alternative datasets.
+- `pipeline.py` constructs the scikit-learn pipeline, trains the model, and persists both artefacts and metrics via `joblib` and JSON.
+- `train.py` is the CLI entry point. It calls `train_and_persist`, prints metrics as JSON, and is the script invoked in the Quickstart.
+- `inference.py` defines Pydantic request/response models, a cached `LinearRegressionService`, and exposes `get_service()` so the FastAPI registry can bootstrap the endpoint lazily.
+
+### Training pipeline (step-by-step)
+
+1. **Dataset loading** — `train_validation_split` reads the configured file and splits according to `config.test_size`.
+2. **Preprocessing** — numeric features are standardised with `StandardScaler` inside a `ColumnTransformer`. Keeping this logic in the pipeline guarantees identical preprocessing at inference time.
+3. **Model fit** — scikit-learn’s `LinearRegression` runs on the scaled features.
+4. **Evaluation** — metrics include:
+   - `r2` (goodness of fit);
+   - `rmse` (root mean squared error);
+   - `mae` (mean absolute error).
+5. **Persistence** — `pipeline.save()` writes `linear_regression_model.joblib`; `pipeline.write_metrics()` mirrors the metrics JSON used for documentation and monitoring.
+
+Inspect `artifacts/metrics.json` after training to validate parity between notebook experiments and scripted training runs.
+
+### Serving with FastAPI
+
+The FastAPI project adopts a conventional structure:
+
+- `core/config.py` — central settings (`app_name`, docs URLs, debug flags).
+- `core/app.py` — builds the FastAPI instance and attaches routers.
+- `models/health.py` — response schema for the health check.
+- `services/registry.py` — declarative registry that discovers each ML module, loads its request/response models, and registers strongly-typed routes.
+- `api/routes.py` — exposes `/health`, per-model endpoints (e.g. `/models/linear_regression`), and a dynamic `/models/{slug}/invoke` for programmatic routing.
+- `main.py` — thin CLI wrapper around `uvicorn`.
+
+Each algorithm module only needs to export `RequestModel`, `ResponseModel`, and `get_service()`. The registry takes care of wiring everything into the API.
+
+---
+
+## Notebook Tour
+
+The companion notebook `notebooks/linear_regression.ipynb` mirrors the production code and adds rich commentary:
+
+- **Cell 1–2**: primer on the maths with diagrams and intuition.
+- **Cell 3**: imports that match the production pipeline exactly.
+- **Cells 4–6**: dataset preview, scatter plots, distribution checks.
+- **Cell 7**: training pipeline replicating `src/pipeline.py` to validate metrics inline.
+- **Cell 8**: residual diagnostics to interrogate the assumptions discussed earlier.
+- **Closing markdown**: instructions for syncing notebook experiments back into the codebase and for rolling changes into the FastAPI layer.
+
+Running the notebook after each code change is a quick way to confirm that experiments and the scripted pipeline stay in lockstep.
+
+---
+
+## Extending the Module
+
+1. **New datasets** — update `CONFIG.data_path` or instantiate `LinearRegressionConfig` with a custom path, then pass it into `train_and_persist(config)`.
+2. **Regularisation** — replace `LinearRegression` with `Ridge`/`Lasso`, add hyperparameters to the config, and log them alongside metrics.
+3. **Experiment tracking** — hook `train_and_persist` into MLflow or Weights & Biases to capture runs, or generate markdown model cards summarising metrics and assumptions.
+4. **Cross-validation** — extend `pipeline.py` with `cross_val_score` or `GridSearchCV` to compare scoring strategies before persisting a model.
+5. **Batch vs. online serving** — reuse `LinearRegressionService` in a CLI that loads `metrics.json` and prints predictions for CSV batches, showing how the same core objects can serve multiple delivery modes.
+
+---
+
+## References
+
+- Freedman, D. A. *Statistical Models: Theory and Practice.*
+- Hastie, T., Tibshirani, R., Friedman, J. *The Elements of Statistical Learning.*
+- Montgomery, D., Peck, E., Vining, G. *Introduction to Linear Regression Analysis.*
+
+Use these references while reading the notebook to connect statistical theory with the implementation.
 
 

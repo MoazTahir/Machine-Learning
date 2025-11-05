@@ -1,0 +1,22 @@
+# Version control
+.git
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.swp
+*.swo
+
+# Virtual environments
+.env
+.venv
+venv/
+*/pyvenv.cfg
+
+# Jupyter artefacts
+*.ipynb_checkpoints/
+
+# Training artefacts regenerated at runtime
+*/artifacts/
