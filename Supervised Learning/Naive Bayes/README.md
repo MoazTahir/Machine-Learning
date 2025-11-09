@@ -235,8 +235,8 @@ Running the notebook after changes ensures the scripted pipeline and exploratory
 
 ## References
 
-- Zhang, H. (2004). "The Optimality of Naive Bayes." *AAAI*.
-- Murphy, K. P. *Machine Learning: A Probabilistic Perspective.*
+- Harry Zhang. "The Optimality of Naive Bayes." *AAAI*, 2004.
+- Kevin Patrick Murphy. *Machine Learning: A Probabilistic Perspective.*
 - UCI Machine Learning Repository — Mushroom dataset documentation.
 
 Consult these resources alongside the notebook to deepen intuition and adapt the pipeline to other categorical domains.

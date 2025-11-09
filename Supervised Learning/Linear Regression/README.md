@@ -231,9 +231,9 @@ Running the notebook after each code change is a quick way to confirm that exper
 
 ## References
 
-- Freedman, D. A. *Statistical Models: Theory and Practice.*
-- Hastie, T., Tibshirani, R., Friedman, J. *The Elements of Statistical Learning.*
-- Montgomery, D., Peck, E., Vining, G. *Introduction to Linear Regression Analysis.*
+- David A. Freedman. *Statistical Models: Theory and Practice.*
+- Trevor Hastie, Robert Tibshirani, Jerome Friedman. *The Elements of Statistical Learning.*
+- Douglas C. Montgomery, Elizabeth A. Peck, G. Geoffrey Vining. *Introduction to Linear Regression Analysis.*
 
 Use these references while reading the notebook to connect statistical theory with the implementation.
 

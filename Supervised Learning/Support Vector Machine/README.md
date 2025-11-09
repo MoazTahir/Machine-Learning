@@ -247,6 +247,6 @@ Running the notebook after pipeline changes is a quick way to validate regressio
 
 ## References
 
-- Cortes, C., & Vapnik, V. (1995). "Support-vector networks." *Machine Learning.*
-- Bishop, C. M. *Pattern Recognition and Machine Learning.*
+- Corinna Cortes, Vladimir Vapnik. "Support-vector networks." *Machine Learning*, 1995.
+- Christopher M. Bishop. *Pattern Recognition and Machine Learning.*
 - scikit-learn documentation: `sklearn.svm.SVC` and the breast cancer dataset reference.

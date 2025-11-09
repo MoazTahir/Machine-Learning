@@ -221,6 +221,6 @@ Running the notebook after code changes assures parity between exploratory findi
 
 ## References
 
-- Smola, A. J., & Schölkopf, B. (2004). "A Tutorial on Support Vector Regression." *Statistics and Computing.*
-- Bishop, C. M. *Pattern Recognition and Machine Learning.*
+- Alexander J. Smola, Bernhard Schölkopf. "A Tutorial on Support Vector Regression." *Statistics and Computing*, 2004.
+- Christopher M. Bishop. *Pattern Recognition and Machine Learning.*
 - scikit-learn documentation: `sklearn.svm.SVR` and the California housing dataset reference.

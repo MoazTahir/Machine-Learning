@@ -219,8 +219,8 @@ Executing the notebook after modifying `src/` code is a quick regression test â€
 
 ## References
 
-- Hosmer, D. W., Lemeshow, S., & Sturdivant, R. X. *Applied Logistic Regression.*
-- Kuhn, M., & Johnson, K. *Applied Predictive Modeling.*
+- David W. Hosmer Jr., Stanley Lemeshow, Rodney X. Sturdivant. *Applied Logistic Regression.*
+- Max Kuhn, Kjell Johnson. *Applied Predictive Modeling.*
 - UCI Machine Learning Repository â€” Heart Disease dataset.
 
 Use these resources alongside the notebook to deepen understanding and to adapt the module for real-world clinical risk scoring pipelines.
