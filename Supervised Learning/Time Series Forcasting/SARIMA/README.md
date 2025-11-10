@@ -84,6 +84,12 @@ Start with the ARIMA idea of differencing and autoregressive corrections, then a
 - **Strengths:** Combines transparency with seasonal awareness, requires modest data, and integrates seamlessly with classical diagnostics.
 - **Limitations:** Parameter search can be expensive; complex seasonality (multiple periods) may require SARIMAX or TBATS; assumes seasonality is stable through time.
 
+### Diagnostics That Matter
+
+- Inspect seasonal and non-seasonal ACF/PACF plots to justify order choices.
+- Validate residuals with Ljung–Box tests and ensure seasonal autocorrelation has been removed.
+- Compare AIC/BIC across competing seasonal orders to balance fit and complexity.
+
 ---
 
 ## Dataset

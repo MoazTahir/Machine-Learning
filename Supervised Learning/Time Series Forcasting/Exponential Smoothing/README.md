@@ -78,6 +78,33 @@ $$
 
 This additive trend + multiplicative seasonality configuration handles exponential growth while remaining computationally lightweight.
 
+### Plain-Language Intuition
+
+Think of Holt-Winters as three moving averages working together. One tracks the current level, one keeps tabs on how fast the series is growing, and the third memorises the typical seasonal bump for each month. Recent observations influence these components more than distant ones thanks to the exponential weights, so the model adapts quickly when patterns shift.
+
+### When to Reach for Exponential Smoothing
+
+- You need a fast, reliable baseline before exploring heavier ARIMA-family models.
+- Seasonality is strong and stable, and the latest observations should influence forecasts more than older ones.
+- You want a method that performs well with short histories and can be explained without heavy statistics.
+
+### Strengths & Limitations
+
+- **Strengths:** Extremely fast to train, adaptive to gradual changes, and easy to explain to stakeholders.
+- **Limitations:** Assumes seasonal pattern repeats consistently; cannot handle multiple seasonalities; lacks built-in mechanisms for covariates or sudden structural breaks.
+
+### Practical Tuning Tips
+
+- Experiment with additive vs. multiplicative combinations for level, trend, and seasonality based on the data’s growth pattern.
+- Enable damping (`damped_trend=True`) when long-range forecasts should flatten out.
+- Compare smoothing levels (`alpha`, `beta`, `gamma`) across runs — higher values react faster but can chase noise.
+
+### Diagnostics & Monitoring
+
+- Plot fitted values vs. actuals to confirm seasonal alignment; misaligned peaks suggest the wrong seasonal period.
+- Inspect residual autocorrelation — lingering spikes imply under-smoothed components or the need for ARIMA-style corrections.
+- Track MAE/MAPE on a rolling window to detect drift; exponential smoothing adapts, but only if artefacts are refreshed regularly.
+
 ---
 
 ## Dataset
@@ -108,6 +135,19 @@ Exponential Smoothing/
 └── artifacts/
     └── .gitkeep
 ```
+
+---
+
+## Implementation Walkthrough
+
+- `config.py` — captures seasonal period, smoothing options, horizon, and file locations in a dataclass.
+- `data.py` — loads the AirPassengers CSV, converts the `Month` column into a monthly index, and returns chronological splits for evaluation.
+- `pipeline.py` — fits the Holt-Winters model via statsmodels, evaluates MAE/RMSE/MAPE, and persists weights plus metrics for reuse.
+- `inference.py` — exposes the trained model to FastAPI with typed request/response schemas and cached loading semantics.
+- `train.py` — serves as the scripted training entry point used in CI or manual retraining.
+- `demo.py` — provides a quick, reproducible CLI example that prints a 12-month forecast to the console.
+
+Each module mirrors the wider supervised-learning architecture so switching between algorithms is frictionless.
 
 ---
 

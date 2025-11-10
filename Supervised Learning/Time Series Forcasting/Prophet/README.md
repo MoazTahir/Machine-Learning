@@ -95,6 +95,12 @@ Prophet decomposes the series into building blocks you can reason about: a smoot
 - Switch `seasonality_mode` between `additive` and `multiplicative` depending on whether seasonal amplitude grows with the level.
 - Use `add_country_holidays` or custom event tables to capture domain-specific peaks (e.g., summer travel, holidays).
 
+### Diagnostics & Monitoring
+
+- Plot Prophet’s built-in component charts (`model.plot_components`) to confirm the learned trend and seasonal shapes align with intuition.
+- Review residual histograms and coverage of `yhat_lower`/`yhat_upper` to ensure uncertainty intervals are calibrated.
+- Run Prophet’s `cross_validation` helper for rolling-origin evaluation; track MAPE or RMSE over time to catch drift in production.
+
 ---
 
 ## Dataset
@@ -125,6 +131,19 @@ Prophet/
 └── artifacts/
     └── .gitkeep
 ```
+
+---
+
+## Implementation Walkthrough
+
+- `config.py` — centralises Prophet hyperparameters (seasonality mode, changepoint prior scale), file paths, and default forecast horizon.
+- `data.py` — loads the AirPassengers CSV, renames columns to Prophet’s expected `ds`/`y`, and performs deterministic train/test splits.
+- `pipeline.py` — constructs and fits the Prophet model, logs diagnostics, exports artefacts via joblib and JSON, and exposes a reusable `forecast` helper.
+- `inference.py` — wraps the trained model in a FastAPI-friendly service with Pydantic schemas that surface `yhat`, `yhat_lower`, and `yhat_upper` bands.
+- `train.py` — CLI entry point that orchestrates training and metric persistence for reproducible runs.
+- `demo.py` — offers a quick smoke test that trains (if necessary) and prints a 12-month projection.
+
+This mirrors the supervised-learning pattern, so swapping models in the FastAPI registry or experimentation workflow stays frictionless.
 
 ---
 
