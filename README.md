@@ -11,6 +11,7 @@ This project contains different handcrafted Machine Learning Models with variety
 
 Refer to the README inside each algorithm folder for end-to-end guidance (theory, training steps, notebooks, FastAPI integration, and demo scripts).
 For a quick refresher across every supervised model, start with `Supervised Learning/README.md`.
+For consolidated error/loss definitions and ready-to-use implementations, see `errors/README.md` alongside the reusable utilities in `errors/metrics.py`.
 
 > [!NOTE]
 > Every project has its own different purpose, framework/tool-stack. As such, not every single one will have one or more of implementations mentioned in ***About The Project*** section
@@ -27,14 +28,15 @@ Supervised
 - [x] Decision Tree
     - [x] Classification (Iris)
     - [x] Regression (California Housing)
-- [ ] Ensembles
-    - [ ] Bagging
-        - [ ] Random Forest
-    - [ ] Boosting
-        - [ ] Gradient Boosting Machines
-        - [ ] Stochastic Gradient Boosting
-        - [ ] AdaBoost
-        - [ ] XGBoost
+- [x] Ensembles
+    - [x] Bagging
+        - [x] Random Forest (Classification)
+        - [x] Random Forest (Regression)
+    - [x] Boosting
+        - [x] Gradient Boosting Machines (Classification & Regression)
+        - [x] Stochastic Gradient Boosting (Classification & Regression)
+        - [x] AdaBoost (Classification & Regression)
+        - [x] XGBoost (Classification & Regression)
 - [x] K Nearest Neighbours
     - [x] Classification
     - [x] Regression
@@ -94,6 +96,7 @@ Deep Learning
 - A new supervised-learning cheat sheet (`Supervised Learning/README.md`) captures key interview-ready takeaways for every completed algorithm.
 - Decision tree classification (Iris) and regression (California housing) modules provide interpretable baselines with feature importances surfaced via FastAPI endpoints and notebooks.
 - Support vector machine classification and regression modules now live under a unified directory with mirrored structures, notebooks, and API endpoints for both tasks.
+- Added an `errors/` workspace housing a comprehensive MathJax-friendly metric reference plus production-ready implementations for MAE, RMSE, sMAPE, R², cross-entropy variants, hinge loss, MASE, quantile loss, and more.
 
 ## Contributing
 
