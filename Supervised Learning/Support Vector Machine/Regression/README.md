@@ -26,7 +26,7 @@ This module packages a production-ready Support Vector Regression (SVR) workflow
 2. **Train the model and persist artefacts**
 
    ```bash
-   python "Supervised Learning/Support Vector Regression/src/train.py"
+   python "Supervised Learning/Support Vector Machine/Regression/src/train.py"
    ```
 
    Example output:
@@ -80,7 +80,7 @@ This module packages a production-ready Support Vector Regression (SVR) workflow
 
 5. **Explore the companion notebook**
 
-   Open `notebooks/svr.ipynb` to step through dataset exploration, train/validation parity checks, diagnostics, and kernel experiments.
+   Open `notebooks/svm_regression.ipynb` to step through dataset exploration, train/validation parity checks, diagnostics, and kernel experiments.
 
 6. **Run the API in Docker** (optional containerised workflow)
 
@@ -153,22 +153,22 @@ The training routine performs an 80/20 split stratified by target quantiles to s
 ## Repository Layout
 
 ```
-Support Vector Regression/
+Regression/
 ├── README.md
+├── artifacts/
+│   └── .gitkeep
 ├── data/
 │   └── california_housing.csv    # Auto-downloaded dataset cache
-├── notebooks/
-│   └── svr.ipynb                 # Exploratory notebook mirroring src/
-├── src/
-│   ├── __init__.py
-│   ├── config.py
-│   ├── data.py
-│   ├── pipeline.py
-│   ├── train.py
-│   └── inference.py
 ├── demo.py
-└── artifacts/
-    └── .gitkeep
+├── notebooks/
+│   └── svm_regression.ipynb      # Exploratory notebook mirroring src/
+└── src/
+   ├── __init__.py
+   ├── config.py
+   ├── data.py
+   ├── inference.py
+   ├── pipeline.py
+   └── train.py
 ```
 
 ---
@@ -197,7 +197,7 @@ This matches the contract used by every supervised-learning module, keeping moni
 
 ## Notebook Tour
 
-`notebooks/svr.ipynb` walks through:
+`notebooks/svm_regression.ipynb` walks through:
 
 1. Dataset inspection and sanity checks against the production feature map.
 2. Train/validation split parity to mirror the CLI pipeline.

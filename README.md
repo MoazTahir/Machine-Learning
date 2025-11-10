@@ -21,8 +21,9 @@ Supervised
 - [x] Linear Regression
 - [x] Logistic Regression
 - [x] Naive Bayes
-- [x] Support Vector Machine (Classification)
-- [x] Support Vector Regression (California Housing)
+- [x] Support Vector Machine
+    - [x] Classification (Breast Cancer)
+    - [x] Regression (California Housing)
 - [x] Decision Tree
     - [x] Classification (Iris)
     - [x] Regression (California Housing)
@@ -92,6 +93,7 @@ Deep Learning
 - Time series forecasting modules (ARIMA, SARIMA, Prophet, Exponential Smoothing) now mirror the supervised-learning template with datasets, pipelines, notebooks, and inference services ready for deployment.
 - A new supervised-learning cheat sheet (`Supervised Learning/README.md`) captures key interview-ready takeaways for every completed algorithm.
 - Decision tree classification (Iris) and regression (California housing) modules provide interpretable baselines with feature importances surfaced via FastAPI endpoints and notebooks.
+- Support vector machine classification and regression modules now live under a unified directory with mirrored structures, notebooks, and API endpoints for both tasks.
 
 ## Contributing
 

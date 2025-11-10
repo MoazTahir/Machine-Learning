@@ -98,6 +98,7 @@ _REGISTRY: dict[str, RegistryEntry] = {
         module_path=REPO_ROOT
         / "Supervised Learning"
         / "Support Vector Machine"
+        / "Classification"
         / "src"
         / "inference.py",
     ),
@@ -107,7 +108,8 @@ _REGISTRY: dict[str, RegistryEntry] = {
         task_type="regression",
         module_path=REPO_ROOT
         / "Supervised Learning"
-        / "Support Vector Regression"
+        / "Support Vector Machine"
+        / "Regression"
         / "src"
         / "inference.py",
     ),

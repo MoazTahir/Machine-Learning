@@ -20,13 +20,14 @@ Fast refresher on the supervised models hosted in this workspace. Skim the bulle
 - **Dial in:** Choose the right variant (Gaussian, Multinomial, Bernoulli) to match feature distributions.
 - **Watch out:** Correlated features break the independence assumption; consider feature hashing or selection first.
 
-## Support Vector Machine (Classification)
+## Support Vector Machines
+### Classification (Breast Cancer)
 - **Core idea:** Find the maximum-margin hyperplane separating classes, optionally projecting data into higher dimensions with kernels.
 - **Use it when:** You have medium-sized datasets with clear margins or overlapping classes that benefit from kernel tricks.
 - **Dial in:** Grid-search `C` and `gamma`, pick kernels (`linear`, `rbf`, `poly`) that reflect decision boundary complexity.
 - **Watch out:** Scaling is mandatory; SVMs do not handle noisy, overlapping classes without careful tuning.
 
-## Support Vector Regression (SVR)
+### Regression (California Housing)
 - **Core idea:** Extend SVM to regression by fitting within an epsilon-insensitive tube, penalising only large deviations.
 - **Use it when:** You need robust regression that ignores small errors and captures non-linear trends with kernels.
 - **Dial in:** Adjust `C`, `epsilon`, and kernel parameters to balance flatness vs. sensitivity.
