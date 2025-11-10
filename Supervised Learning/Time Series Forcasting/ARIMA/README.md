@@ -105,6 +105,23 @@ Combining differencing with AR and MA terms balances long-term trends and short-
 
 The ARIMA model transforms monthly passenger counts into a nearly stationary series by subtracting each value from the previous month. It then learns how the differenced series depends on its own recent history and noise corrections. At prediction time, it rolls the equations forward step-by-step, translating differenced forecasts back into absolute passenger counts.
 
+### When to Reach for ARIMA
+
+- You have a single (univariate) time series with clear autocorrelation but no dominant seasonal pattern.
+- Differencing once or twice makes the series look roughly stationary and residual diagnostics resemble white noise.
+- You want an interpretable, fast baseline before moving to more complex state-space or machine-learning models.
+
+### Strengths & Limitations
+
+- **Strengths:** Transparent coefficients, excellent for short-term forecasts, handles stochastic trends with minimal data. Easy to automate with information criteria.
+- **Limitations:** Struggles with strong seasonality (without seasonal terms), sudden structural breaks, or exogenous drivers unless extended to SARIMAX.
+
+### Assumptions & Diagnostics
+
+- Stationarity after differencing — check augmented Dickey–Fuller tests and rolling statistics.
+- Residuals should be uncorrelated — inspect ACF/PACF of residuals and run Ljung–Box tests.
+- Model order should balance fit vs. complexity — compare AIC/BIC scores across candidate $(p, d, q)$ grids.
+
 ---
 
 ## Dataset

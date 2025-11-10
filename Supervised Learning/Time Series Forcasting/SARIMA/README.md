@@ -69,6 +69,21 @@ $$
 
 where $L$ is the lag operator and $s$ is the seasonal period (12 for monthly data). This structure captures repeating annual patterns while still modelling non-seasonal dynamics. The $(1,1,1)\times(1,1,1)_{12}$ configuration provides a strong baseline for AirPassengers.
 
+### Plain-Language Intuition
+
+Start with the ARIMA idea of differencing and autoregressive corrections, then add a second set of seasonal knobs that operate exactly one year apart. The model says: "remove yearly patterns, learn how the de-seasonalised signal behaves, add back the typical seasonal swing, and push the forecast forward one month at a time." It is essentially two ARIMA models layered together — one for immediate momentum and one for repeating yearly waves.
+
+### When to Reach for SARIMA
+
+- The series exhibits strong, regular seasonality (monthly, weekly, quarterly) alongside trends.
+- Seasonal decomposition or autocorrelation plots show spikes at multiples of the seasonal period.
+- You want classical, interpretable coefficients but standard ARIMA underfits due to cyclical behaviour.
+
+### Strengths & Limitations
+
+- **Strengths:** Combines transparency with seasonal awareness, requires modest data, and integrates seamlessly with classical diagnostics.
+- **Limitations:** Parameter search can be expensive; complex seasonality (multiple periods) may require SARIMAX or TBATS; assumes seasonality is stable through time.
+
 ---
 
 ## Dataset
@@ -99,6 +114,19 @@ SARIMA/
 └── artifacts/
     └── .gitkeep
 ```
+
+---
+
+## Implementation Walkthrough
+
+- `config.py` — stores the $(p, d, q)$ and seasonal $(P, D, Q, s)$ orders, forecast horizon, and file paths.
+- `data.py` — loads the AirPassengers CSV, ensures a monthly DateTimeIndex, and keeps chronological splits.
+- `pipeline.py` — trains the SARIMA model with statsmodels, evaluates MAE/RMSE/MAPE, and persists artefacts via joblib/JSON.
+- `inference.py` — defines Pydantic schemas and a cached FastAPI service that reuses saved models and metrics.
+- `train.py` — CLI entry point that wires together config, data loading, training, and serialisation.
+- `demo.py` — runs a quick train + 12-step forecast from the command line for smoke testing.
+
+The pattern is identical to other supervised modules to ease comparison and reuse across algorithms.
 
 ---
 

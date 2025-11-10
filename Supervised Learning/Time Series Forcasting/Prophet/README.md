@@ -74,6 +74,27 @@ $$
 
 The model is fit using Stan, providing posterior uncertainty estimates that translate into forecast intervals.
 
+### Plain-Language Intuition
+
+Prophet decomposes the series into building blocks you can reason about: a smooth trend curve that changes slope at a handful of data-driven changepoints, repeating seasonal cycles drawn with Fourier curves, and optional holiday pulses. Forecasting is as simple as extending those components into the future and summing them, which keeps the predictions interpretable (“trend explains 70%, seasonality swings ±15%, holidays add the rest”).
+
+### When to Reach for Prophet
+
+- You need production forecasts quickly with minimal tuning and solid defaults.
+- The business wants interpretable components (trend vs. seasonality vs. events) and uncertainty intervals out of the box.
+- The series has irregular sampling, missing values, or occasional outliers that would break stricter classical models.
+
+### Strengths & Limitations
+
+- **Strengths:** Fast to prototype, robust to gaps and outliers, supports multiple seasonalities and holiday effects, automatically produces prediction intervals.
+- **Limitations:** Assumes piecewise-linear or logistic growth; struggles with sudden regime changes unless changepoint priors are relaxed; less precise for very short histories compared to ARIMA family.
+
+### Practical Tuning Tips
+
+- Increase `changepoint_prior_scale` for more flexible trend changes; decrease it to smooth the curve.
+- Switch `seasonality_mode` between `additive` and `multiplicative` depending on whether seasonal amplitude grows with the level.
+- Use `add_country_holidays` or custom event tables to capture domain-specific peaks (e.g., summer travel, holidays).
+
 ---
 
 ## Dataset

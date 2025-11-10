@@ -10,6 +10,7 @@ This project contains different handcrafted Machine Learning Models with variety
 ## Useage
 
 Refer to the README inside each algorithm folder for end-to-end guidance (theory, training steps, notebooks, FastAPI integration, and demo scripts).
+For a quick refresher across every supervised model, start with `Supervised Learning/README.md`.
 
 > [!NOTE]
 > Every project has its own different purpose, framework/tool-stack. As such, not every single one will have one or more of implementations mentioned in ***About The Project*** section
@@ -34,10 +35,11 @@ Supervised
 - [x] K Nearest Neighbours
     - [x] Classification
     - [x] Regression
-- [ ] Time Series Forcasting
-    - [ ] ARIMA
-    - [ ] SARIMA
-    - [ ] Prophet
+- [x] Time Series Forecasting
+    - [x] ARIMA
+    - [x] SARIMA
+    - [x] Prophet
+    - [x] Exponential Smoothing (Holt-Winters)
 
 UnSupervised
 - [ ] K Means Clustering
@@ -85,6 +87,8 @@ Deep Learning
 - Each completed module includes a production-style `src/` package, exploratory notebook, notebook-ready dataset, persisted artefacts, and a `demo.py` sampler for quick predictions.
 - READMEs now pair formal mathematical derivations with plain-language explanations to support both technical and non-technical audiences.
 - KNN classification (wine) and regression (diabetes) modules follow the same pattern, including FastAPI services and notebooks.
+- Time series forecasting modules (ARIMA, SARIMA, Prophet, Exponential Smoothing) now mirror the supervised-learning template with datasets, pipelines, notebooks, and inference services ready for deployment.
+- A new supervised-learning cheat sheet (`Supervised Learning/README.md`) captures key interview-ready takeaways for every completed algorithm.
 
 ## Contributing
 
