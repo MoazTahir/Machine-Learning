@@ -31,7 +31,9 @@ Supervised
         - [ ] Stochastic Gradient Boosting
         - [ ] AdaBoost
         - [ ] XGBoost
-- [ ] K Nearest Neighbours
+- [x] K Nearest Neighbours
+    - [x] Classification
+    - [x] Regression
 - [ ] Time Series Forcasting
     - [ ] ARIMA
     - [ ] SARIMA
@@ -82,6 +84,7 @@ Deep Learning
 - Unified FastAPI endpoints now expose linear regression, logistic regression, Naive Bayes, SVM (classification), and SVR modules via the `fastapi_app` project.
 - Each completed module includes a production-style `src/` package, exploratory notebook, notebook-ready dataset, persisted artefacts, and a `demo.py` sampler for quick predictions.
 - READMEs now pair formal mathematical derivations with plain-language explanations to support both technical and non-technical audiences.
+- KNN classification (wine) and regression (diabetes) modules follow the same pattern, including FastAPI services and notebooks.
 
 ## Contributing
 

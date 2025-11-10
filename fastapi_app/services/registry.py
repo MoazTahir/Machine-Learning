@@ -111,6 +111,28 @@ _REGISTRY: dict[str, RegistryEntry] = {
         / "src"
         / "inference.py",
     ),
+    "knn_classification": RegistryEntry(
+        slug="knn_classification",
+        display_name="K-Nearest Neighbours (Wine Classification)",
+        task_type="classification",
+        module_path=REPO_ROOT
+        / "Supervised Learning"
+        / "K Nearest Neighbours"
+        / "Classification"
+        / "src"
+        / "inference.py",
+    ),
+    "knn_regression": RegistryEntry(
+        slug="knn_regression",
+        display_name="K-Nearest Neighbours (Diabetes Regression)",
+        task_type="regression",
+        module_path=REPO_ROOT
+        / "Supervised Learning"
+        / "K Nearest Neighbours"
+        / "Regression"
+        / "src"
+        / "inference.py",
+    ),
 }
 
 
