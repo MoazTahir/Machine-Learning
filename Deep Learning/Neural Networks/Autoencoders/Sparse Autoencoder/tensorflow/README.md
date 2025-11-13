@@ -5,6 +5,22 @@ Custom training loop built with Keras to impose a KL divergence sparsity constra
 
 ---
 
+## Learning goals
+
+- Observe how sparsity constraints manifest in a custom `train_step` for subclassed Keras models.
+- Monitor KL penalty, reconstruction loss, and PSNR together to understand competing objectives.
+- Practise tuning sparsity targets and penalty weights using the config-driven workflow.
+
+---
+
+## Implementation highlights
+
+- The model overrides `train_step` and `test_step`, so the KL penalty is baked into every optimisation update.
+- Metrics are registered as class attributes, ensuring they appear automatically in `model.fit` logs.
+- Checkpoints store only weights, making it easy to reload into compatible architectures for transfer experiments.
+
+---
+
 ## 1. Notebook tour
 
 - `notebooks/sparse_autoencoder_tensorflow.ipynb` mirrors the configure → train → reconstruct workflow.

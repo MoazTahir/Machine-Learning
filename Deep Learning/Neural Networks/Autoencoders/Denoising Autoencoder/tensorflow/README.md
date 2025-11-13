@@ -5,6 +5,22 @@ Mirror of the PyTorch denoising module using Keras and `tf.data`.
 
 ---
 
+## Learning goals
+
+- Learn how to generate noisy/clean pairs inside a `tf.data` pipeline.
+- Track PSNR alongside reconstruction loss to judge qualitative improvements.
+- Practice restoring checkpoints and running inference to denoise arbitrary batches.
+
+---
+
+## Implementation highlights
+
+- Device visibility is configured up front so you can target MPS, GPU, or CPU with a single setting.
+- The custom PSNR metric is registered during compilation, making it available in both training logs and callbacks.
+- Checkpoints save the full model (`.keras`) artefact so you can reload without rebuilding the graph.
+
+---
+
 ## 1. Notebook tour
 
 - `notebooks/denoising_autoencoder_tensorflow.ipynb` mirrors the configure → train → reconstruct flow with the TensorFlow stack.

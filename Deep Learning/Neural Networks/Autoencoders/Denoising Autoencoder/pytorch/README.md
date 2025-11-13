@@ -5,6 +5,22 @@ Learn to undo Gaussian noise with a fully-connected denoising autoencoder built 
 
 ---
 
+## Learning goals
+
+- Understand how input corruption changes the training objective compared with the vanilla autoencoder.
+- Observe how PSNR and reconstruction loss respond as you sweep the injected noise level.
+- Reuse modular training utilities to extend the baseline autoencoder with minimal code changes.
+
+---
+
+## Implementation highlights
+
+- Noise injection happens inside a dataset wrapper so the model only ever sees corrupted inputs.
+- Training history tracks both MSE and PSNR to quantify perceptual fidelity after denoising.
+- Checkpoints and metrics are written to a dedicated artifact directory for quick experiment comparisons.
+
+---
+
 ## 1. Notebook tour
 
 - `notebooks/denoising_autoencoder_pytorch.ipynb` demonstrates how to add Gaussian noise, launch training, and visualise before/after reconstructions.

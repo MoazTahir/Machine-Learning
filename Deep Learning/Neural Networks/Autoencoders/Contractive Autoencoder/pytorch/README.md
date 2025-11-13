@@ -5,6 +5,22 @@ Encourages robustness by penalising the Jacobian of the encoder with respect to 
 
 ---
 
+## Learning goals
+
+- Understand the motivation behind contractive penalties and how they relate to adversarial robustness.
+- Inspect how the penalty term evolves relative to reconstruction error during training.
+- Experiment with activation choices and penalty weights to control local smoothness of the latent space.
+
+---
+
+## Implementation highlights
+
+- The model exposes a `contractive_penalty` helper making it easy to log or reuse in notebooks.
+- Training history captures the penalty magnitude so you can detect saturation or vanishing gradients.
+- Modular design lets you swap the MLP for a convolutional encoder while retaining the penalty computation.
+
+---
+
 ## 1. Notebook tour
 
 - `notebooks/contractive_autoencoder_pytorch.ipynb` demonstrates training, tracks the contractive penalty, and visualises reconstructions.

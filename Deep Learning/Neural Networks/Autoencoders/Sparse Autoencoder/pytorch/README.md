@@ -5,6 +5,22 @@ Impose sparsity in the latent representation using a KL divergence penalty.
 
 ---
 
+## Learning goals
+
+- Internalise how KL-based sparsity regularisation balances representation quality and reconstruction fidelity.
+- Inspect latent activations to verify whether the desired sparsity level is achieved during training.
+- Experiment with hyperparameters that control the sparsity target and penalty weight.
+
+---
+
+## Implementation highlights
+
+- The encoder uses sigmoid activations so latent activations stay in (0, 1), making the KL term well-behaved.
+- Training metrics track the KL penalty alongside PSNR, helping you judge the trade-off in real time.
+- Utility helpers expose the KL computation for reuse in notebooks or hybrid objectives.
+
+---
+
 ## 1. Notebook tour
 
 - `notebooks/sparse_autoencoder_pytorch.ipynb` follows the same workflow as other modules: configure, train, inspect sparsity/KL metrics, and reconstruct examples.
