@@ -1,141 +1,129 @@
 # Machine-Learning
 
-## About The Project
-
-This project contains different handcrafted Machine Learning Models with variety of training datasets, each tailored with best suited models. Inside, you'll find a well-organized folder structure containing relevant notebooks, Flask apps with Docker, Gradio interfaces for implementation, and/or inference models(applied if applicable). All this is avalible for you to learn about basics of AI/ML development.
+A comprehensive playground for classical machine learning, deep learning, and MLOps workflows. Each domain ships with curated datasets, notebooks, production-style `src/` packages, container-ready services, and documentation intended to double as learning material and implementation reference.
 
 > [!NOTE]
-> This project is still under developement and the progress so far is mentioned in the Roadmap section
+> This repository evolves continuously. The roadmap and progress tables below reflect the latest completed and in-flight workstreams across supervised, unsupervised, deep learning, and operations tracks.
 
-## Usage
+---
 
-- Refer to the README inside each algorithm folder for end-to-end guidance (theory, training steps, notebooks, FastAPI integration, and demo scripts).
-- Every workflow subdirectory (`artifacts/`, `data/`, `notebooks/`, `src/`) now ships with a scoped README that documents the contract for that slice of the pipeline.
-- For a quick refresher across every supervised model, start with `Supervised Learning/README.md`.
-- For unsupervised modules, `Unsupervised Learning/README.md` mirrors the same cheat-sheet format.
-- For consolidated error/loss definitions and ready-to-use implementations, see `Essentials Toolkit/Errors/README.md` alongside the reusable utilities in `Essentials Toolkit/Errors/metrics.py`.
-- Operational playbooks now live under `Essentials Toolkit/Benchmark Tools/`, `Evaluation/`, and `Monitoring/`, each with roadmap notes and upcoming automation plans.
+## Repository highlights
 
-> [!NOTE]
-> Every project has its own different purpose, framework/tool-stack. As such, not every single one will have one or more of implementations mentioned in ***About The Project*** section
+- **End-to-end verticals**: Every algorithm family includes a notebook for exploration, a `src/` module for reuse, artifacts for inference, and (when applicable) FastAPI/Gradio endpoints or Docker recipes.
+- **Framework parity**: Deep-learning tracks (autoencoders, diffusion, GANs) provide mirrored PyTorch and TensorFlow implementations with matching configs, data pipelines, training engines, and inference helpers.
+- **Documentation-first**: Each folder owns a README that explains the theory, architecture choices, experiment workflow, and troubleshooting tips for that scope.
+- **Artifacts as first-class citizens**: Metrics, checkpoints, and sample grids persist under dedicated `artifacts/` directories, making it easy to compare runs or resume experiments.
 
-## Roadmap
+---
 
-Supervised
-- [x] Linear Regression
-- [x] Logistic Regression
+## Repository structure
+
+- `.dockerignore` — Docker build context filters used by containerised services.
+- `.git/` — Git metadata (do not modify manually).
+- `.gitignore` — Version-control ignore rules shared across all modules.
+- `Deep Learning/` — Framework-specific learning paths (PyTorch/TensorFlow basics, neural-network subtracks, neural architecture search).
+  - `Neural Networks/` — Detailed tracks for autoencoders, diffusion models, GANs, transformers, GNNs, RNNs, continual/meta learning, normalizing flows, and more.
+- `Essentials Toolkit/` — Shared metric implementations, benchmark harness scaffolds, evaluation templates, and monitoring playbooks.
+- `Evaluation/` — Operational checklists and forthcoming automation for experiment review.
+- `fastapi_app/` — Unified FastAPI surface exposing trained models with Docker-ready deployment scripts.
+- `LICENSE` — MIT license covering the repository.
+- `Monitoring/` — Observability runbooks, logging templates, and future alerting integrations.
+- `Reinforcement Learning/` — Planning/control curricula under construction with shared utilities and environment stubs.
+- `Supervised Learning/` — Production-ready classical ML suites with datasets, notebooks, `src/` packages, artifacts, and service layers.
+- `Unsupervised Learning/` — Clustering, dimensionality reduction, anomaly detection, and time-series analysis scaffolding with mirrored documentation.
+- `requirements.txt` — Python dependencies for top-level workflows and notebooks.
+- `README.md` — You are here; roadmap, navigation, and contribution guidance.
+
+---
+
+---
+
+## Getting around
+
+- Start with the algorithm-level README inside any folder; it links to prerequisite theory, notebook walkthroughs, and CLI commands.
+- Cheat sheets for major pillars:
+  - `Supervised Learning/README.md`
+  - `Unsupervised Learning/README.md`
+  - `Deep Learning/Neural Networks/README.md`
+- Core utilities live under `Essentials Toolkit/` (metrics, benchmark harnesses, evaluation/monitoring playbooks).
+- Each workflow directory (`data/`, `src/`, `notebooks/`, `artifacts/`) publishes a contract README describing file expectations, naming conventions, and automation hooks.
+
+---
+
+## Roadmap snapshot
+
+### Supervised Learning (production ready)
+
+- [x] Linear, logistic, and polynomial regression suites
 - [x] Naive Bayes
-- [x] Support Vector Machine
-    - [x] Classification (Breast Cancer)
-    - [x] Regression (California Housing)
-- [x] Decision Tree
-    - [x] Classification (Iris)
-    - [x] Regression (California Housing)
-- [x] Ensembles
-    - [x] Bagging
-        - [x] Random Forest (Classification)
-        - [x] Random Forest (Regression)
-    - [x] Boosting
-        - [x] Gradient Boosting Machines (Classification & Regression)
-        - [x] Stochastic Gradient Boosting (Classification & Regression)
-        - [x] AdaBoost (Classification & Regression)
-        - [x] XGBoost (Classification & Regression)
-- [x] K Nearest Neighbours
-    - [x] Classification
-    - [x] Regression
-- [x] Time Series Forecasting
-    - [x] ARIMA
-    - [x] SARIMA
-    - [x] Prophet
-    - [x] Exponential Smoothing (Holt-Winters)
+- [x] Support Vector Machines (classification + regression)
+- [x] Decision Trees (classification + regression)
+- [x] Ensemble methods (Random Forest, Gradient Boosting, XGBoost, AdaBoost)
+- [x] K-Nearest Neighbours (classification + regression)
+- [x] Time-series forecasting pack (ARIMA, SARIMA, Prophet, Holt–Winters)
 
-Operations & Tooling
-- [ ] Benchmark Tools
-- [ ] Evaluation Playbooks
-- [ ] Monitoring & Observability
+### Operations & Tooling
 
-UnSupervised
-- [ ] K Means Clustering *(scaffolding in place)*
-- [ ] DBSCAN *(scaffolding in place)*
-- [ ] Gaussian Mixture *(scaffolding in place)*
-- [ ] PCA *(scaffolding in place)*
-- [ ] ICA *(scaffolding in place)*
-- [ ] Anomaly Detection *(scaffolding in place)*
-- [ ] Time Series Analysis *(scaffolding in place)*
-    - [ ] Autocorrelation Analysis
-    - [ ] Seasonality Decomposition
-    - [ ] Trend Analysis
+- [ ] Benchmark harnesses *(in design)*
+- [ ] Evaluation playbooks *(in design)*
+- [ ] Monitoring & observability runbooks *(in design)*
 
-Reinforcement Learning
-- [ ] Q-Learning
-- [ ] Deep Q Network
-- [ ] Deep SARSA
-- [ ] Policy Gradient Methods
-- [ ] Monte Carlo Tree Search
-- [ ] Deep Deterministic Policy Gradients
+### Unsupervised Learning (scaffolding complete)
 
-Deep Learning
-- [ ] PyTorch Basics (Started)
-- [ ] Tensorflow Basics (Started)
-- [ ] Neural Networks
-    - [ ] FeedForward Neural Networks
-    - [ ] Convolutional Neural Networks
-    - [ ] Deconvolutional Neural Networks
-    - [ ] MultiLayer Perceptrons(Feed Forward)
-    - [ ] Generative Adversarial Networks
-    - [ ] MLP
-    - [ ] RNN
-        - [ ] GRU
-        - [ ] LSTM
-    - [ ] Residual Networks
-    - [ ] GANs
-    - [ ] Boltzmann Machines
-    - [ ] Hopfield Machines
-    - [ ] Graph Neural Networks
-- [ ] Neural Architecture Search
+- [ ] K-Means, DBSCAN, Gaussian Mixtures
+- [ ] PCA, ICA, Autoencoders for dimensionality reduction
+- [ ] Anomaly detection workflows
+- [ ] Time-series analysis notebook set (autocorrelation, seasonality, trend)
 
-### Deep learning learning paths
+### Reinforcement Learning (upcoming)
 
-- Autoencoder track now includes vanilla, denoising, sparse, contractive, and variational variants with mirrored PyTorch/TensorFlow code, notebooks, and instructional READMEs.
-- Each notebook opens with learning objectives, prerequisites, and experiment prompts so it can be used as a standalone guided lab.
-- Shared project scaffolding (`config/`, `data/`, `model/`, `train/`, `inference/`, `utils/`) keeps experiments reproducible across frameworks.
-- Artefacts and metrics persist under `Deep Learning/Neural Networks/Autoencoders/<Variant>/artifacts/`, ready for comparison runs.
+- [ ] Q-Learning, SARSA, DQN variants
+- [ ] Policy gradient methods, Actor–Critic
+- [ ] Monte Carlo Tree Search, DDPG
 
-### Recent Supervised Updates
+### Deep Learning
 
-- Unified FastAPI endpoints now expose linear regression, logistic regression, Naive Bayes, SVM (classification), and SVR modules via the `fastapi_app` project.
-- Each completed module includes a production-style `src/` package, exploratory notebook, notebook-ready dataset, persisted artefacts, and a `demo.py` sampler for quick predictions.
-- READMEs now pair formal mathematical derivations with plain-language explanations to support both technical and non-technical audiences.
-- KNN classification (wine) and regression (diabetes) modules follow the same pattern, including FastAPI services and notebooks.
-- Time series forecasting modules (ARIMA, SARIMA, Prophet, Exponential Smoothing) now mirror the supervised-learning template with datasets, pipelines, notebooks, and inference services ready for deployment.
-- All supervised and unsupervised project folders now include README coverage down to the `artifacts/`, `data/`, `notebooks/`, and `src/` level to keep onboarding and maintenance friction-free.
-- A new supervised-learning cheat sheet (`Supervised Learning/README.md`) captures key interview-ready takeaways for every completed algorithm.
-- Decision tree classification (Iris) and regression (California housing) modules provide interpretable baselines with feature importances surfaced via FastAPI endpoints and notebooks.
-- Support vector machine classification and regression modules now live under a unified directory with mirrored structures, notebooks, and API endpoints for both tasks.
-- Added an `errors/` workspace housing a comprehensive MathJax-friendly metric reference plus production-ready implementations for MAE, RMSE, sMAPE, R², cross-entropy variants, hinge loss, MASE, quantile loss, and more.
-- Introduced `Essentials Toolkit/Benchmark Tools/`, `Evaluation/`, and `Monitoring/` placeholders to stage upcoming benchmarking harnesses, evaluation playbooks, and observability runbooks.
-- Mirroring the supervised layout, unsupervised modules (K-Means, DBSCAN, Gaussian Mixtures, ICA, PCA, Anomaly Detection, and Time-Series Analysis) now ship with READMEs, CLI stubs, and modular `src/` scaffolding ready for future implementation.
+- [x] Autoencoder track (vanilla, denoising, sparse, contractive, variational) — PyTorch + TensorFlow parity
+- [x] Diffusion Models track — DDPM baseline with mirrored PyTorch/TensorFlow stacks, lab notebooks, and artifacts
+- [x] Generative Adversarial Networks — DCGAN-style PyTorch and TensorFlow implementations with training/inference modules and guided notebooks
+- [ ] Feedforward, CNN, RNN, and residual architectures *(scaffolding underway)*
+- [ ] Graph/Boltzmann/Hopfield networks *(planned)*
+- [ ] Neural Architecture Search *(planned)*
 
-## Contributing
+---
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+## Recent highlights (Q4 2025)
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+- **Generative module expansion**: Completed diffusion-model and GAN learning paths with unified READMEs, experiment prompts, and artifact pipelines.
+- **Notebook-driven labs**: Every deep-learning module now includes a guided lab notebook covering setup → train → analyse → sample, plus next-step prompts.
+- **Documentation uplift**: Root-level and framework-specific READMEs now catalog theory-to-code mappings, troubleshooting guides, and experiment backlogs.
+- **Artifact harmonisation**: `artifacts/<track>/` directories share consistent naming (`metrics.json`, `{model}.pt`, `{model}_samples.png`) for easier automation.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+---
+
+## Contribution guidelines
+
+Contributions keep this ecosystem growing. Bug fixes, new modules, documentation improvements, and reproducible experiments are all welcome.
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/awesome-improvement`.
+3. Commit changes with clear messages: `git commit -m "Describe your change"`.
+4. Push the branch: `git push origin feature/awesome-improvement`.
+5. Open a pull request and tag it with the relevant track (supervised, unsupervised, deep-learning, ops).
+
+> [!TIP]
+> Include notebook outputs, metrics JSON, and sample artifacts when proposing model changes so reviewers can validate behaviour quickly.
+
+---
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See `LICENSE` for full terms.
+
+---
 
 ## Contact
 
-Mohammad Moaz Tahir
-
-* Linkedin : [https://www.linkedin.com/in/moaz-tahir](https://www.linkedin.com/in/moaz-tahir)
-* Mail: moaztahir.mt@gmail.com
+Mohammad Moaz Tahir  
+LinkedIn: [https://www.linkedin.com/in/moaz-tahir](https://www.linkedin.com/in/moaz-tahir)  
+Email: [moaztahir.mt@gmail.com](mailto:moaztahir.mt@gmail.com)
